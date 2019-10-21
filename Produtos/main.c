@@ -54,7 +54,7 @@ typedef struct Produto{
 	char nome[100];
 //	char numero_fornecedor;
 //	int promocao;
-	float preco;
+	double preco;
 //	int marca;
 //	char categoria[100];
 	
@@ -91,7 +91,7 @@ void MenuCadastroDeProdutos(){
 	scanf("%100[^\n]",&produto.nome);
 	limparBuffer();
 	printf("Informe o preco do produto ");
-	scanf("%f",&produto.preco);
+	scanf("%lf",&produto.preco);
 	limparBuffer();
 	
 	if(cadastrarPodutos(produto)){
@@ -125,6 +125,24 @@ void CadastrarProdutosMenu(){
 }
 
 
+void consutar(){
+
+int i;	
+	clearScreen();
+	
+	for(i=0; i<=100; i++)
+	{
+		if(produtos[i].preco!=00)
+		{
+			printf("cod barras = %s nome = %s preco=%.2lf\n",produtos[i].cod_barras,produtos[i].nome,produtos[i].preco);
+		}
+	}
+	
+	getch();
+}
+
+
+
 void CadastroProdutos(){
 	int opcao;
 	bool podeSair = false;
@@ -136,10 +154,10 @@ void CadastroProdutos(){
 		
 		switch (opcao){
 		   case 1:
-		    MenuCadastroDeProdutos();
+		    	MenuCadastroDeProdutos();
 		   break;
 		   case 2:
-		    //Consultar
+				consutar();
 		   break;
 		   case 3:
 		     //Excluir
