@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include <strings.h>
+#include <string.h>
 
 typedef int bool;
 enum { false, true };
@@ -22,21 +22,6 @@ typedef struct Estoque{
 	int quantidade;
 
 }Estoque;
-/*
-bool cadastrarEstoque(Estoque estoque){
-	int i;
-	for(i=0; i<100; i++){
-		
-		if()
-			
-	}
-	
-}
-*/
-
-
-
-
 
 typedef struct Fornecedor{
 	
@@ -64,6 +49,11 @@ typedef struct Produto{
 Estoque estoques[100];
 Fornecedor fornecedores[100];
 Produto produtos[100];
+
+
+
+
+
 
 
 bool cadastrarPodutos(Produto produto){
@@ -104,37 +94,53 @@ void MenuCadastroDeProdutos(){
 }
 
 
-void CadastrarProdutosMenu(){
-	clearScreen();
-	printf("=========================\n");
-	printf("CADASTRO DE PRODUTOS\n");
-	printf("=========================\n");
-	printf("\n");
-	printf("1. Cadastrar\n");
-	printf("2. Consultar\n");
-	printf("3. Excluir\n");
-	printf("4. Alterar\n");
-	printf("5. Listar\n");
-	printf("6. Sair\n");
-	printf("\n");
-	printf("\n");
-	printf("\n");
-	printf("\n");
-	printf("Informe uma das opcoes de menu: ");
+
+void bubble_Sort(){
+	int n=100;
+	int ordenado=0, i;
+	Produto produto;
 	
+	while(ordenado==0){
+		
+		ordenado=1;
+		
+		for(i=0; i < n-1; i++){
+			
+			if(produtos[i].preco > produtos[i+1].preco){
+				
+				produto.preco=produtos[i].preco;
+				strcpy(produto.nome,produtos[i].nome);
+				strcpy(produto.cod_barras,produtos[i].cod_barras);
+				
+				produtos[i].preco=produtos[i+1].preco;
+				strcpy(produtos[i].nome,produtos[i+1].nome);
+				strcpy(produtos[i].cod_barras,produtos[i+1].cod_barras);
+				
+				produtos[i+1].preco=produto.preco;
+				strcpy(produtos[i+1].nome,produto.nome);
+				strcpy(produtos[i+1].cod_barras,produto.cod_barras);
+				
+				ordenado=0;
+			}
+		}
+		n--;
+	}
+	consutar();
 }
+
+
 
 
 void consutar(){
 
-int i;	
+	int i;	
 	clearScreen();
 	
 	for(i=0; i<=100; i++)
 	{
 		if(produtos[i].preco!=00)
 		{
-			printf("cod barras = %s nome = %s preco=%.2lf\n",produtos[i].cod_barras,produtos[i].nome,produtos[i].preco);
+			printf("cod barras = %s \nnome = %s \npreco=%.2lf\n\n",produtos[i].cod_barras,produtos[i].nome,produtos[i].preco);
 		}
 	}
 	
@@ -143,11 +149,32 @@ int i;
 
 
 
-void CadastroProdutos(){
+
+
+
+void Menu(){
 	int opcao;
 	bool podeSair = false;
 	while(!podeSair){
-		CadastrarProdutosMenu();
+		
+		
+		clearScreen();
+		printf("=========================\n");
+		printf("CADASTRO DE PRODUTOS\n");
+		printf("=========================\n");
+		printf("\n");
+		printf("1. Cadastrar\n");
+		printf("2. Consultar\n");
+		printf("3. Excluir\n");
+		printf("4. Alterar\n");
+		printf("5. Listar\n");
+		printf("6. Ordenar\n");
+		printf("7. Sair\n");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("Informe uma das opcoes de menu: ");
 		
 		scanf("%d",&opcao);
 		limparBuffer();
@@ -168,74 +195,69 @@ void CadastroProdutos(){
 		   case 5:
 		     //Listar
 		   break;
+		   
 		   case 6:
-		     podeSair = true;
+		    	bubble_Sort();
 		   break;
+		   
+		   case 7:
+				podeSair = true;
+		   break;
+		   
+		   
+		   
+		   
 		   default:
 		     printf("\nOpcao invalida!!");
 		     getch();
-		}
-		
-		
-		
-		
+		}		
 	}
-	
-	
-	
-	
-
 }
 
 int main(){
 	setlocale(LC_ALL,"Portuguese");
 	
 	
-	CadastroProdutos();
+	Menu();
 	
 	return 0;
 }
-
 /*
-int main(){
 
-	setlocale(LC_ALL,"Portuguese");
+
+
+void insertion_Sort(int *vet, int t)
+{
+	int i, y, aux;
 	
-	int a;
-	
-	
-	printf("\aEscolha uma das opções a seguir!!");
-	printf("\n 1 ---> Cadastrar um produto");
-	printf("\n 2 ---> Consuntar a lista de produtos já cadastrados");
-	printf("\n 3 ---> Fechar o programa\n");
-	scanf("%d",&a);
-	switch(a)
-	{
-		case 1:{
-			
-			CadastroProdutos();
-			
-			break;
-		}
-	
-		case 2:{
-			
-			
-			
-			
-			break;
-		}
-	
-		case 3:{
-			
-			
-			
-			break;
-		}
+	for(i=1; i<t; i++){
 		
-	}
-	
-	
-	return 0;
+		aux=vet[i];
+		for(y=i-1; y>=0 && vet[y]>aux; y--){
+			vet[y+1]=vet[y];	
+		}
+		vet[y+1]=aux;
+	}	
 }
+
+
+
+
+void selection_Sort(int *vet, int t){
+	
+	int i, y, min, aux;
+	
+	for(i=0; i < t-1; i++){
+		min=i;
+		for(y=i+1; y<t; y++){
+			if(vet[y]<vet[min]){
+				min=y;
+			}
+		}
+		aux=vet[i];
+		vet[i]=vet[min];
+		vet[min]=aux;
+	}	
+}
+
 */
